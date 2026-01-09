@@ -9,7 +9,7 @@ import Portfolio from "./page/Portfolio/Portfolio";
 import Activity from "./page/Activity/Activity";
 import Wallet from "./page/Wallet/Wallet";
 import PaymentDetails from "./page/PaymentDetails/PaymentDetails";
-import WatchList from "./page/Watchlist/Watchlist";
+import WatchList from "./page/WatchList/WatchList";
 import Withdrawal from "./page/Withdrawal/Withdrawal";
 import Profile from "./page/Profile/Profile";
 import Logout from "./page/Logout/Logout";
