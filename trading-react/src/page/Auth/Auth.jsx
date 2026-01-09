@@ -32,9 +32,8 @@ export const Auth = () => {
           bg-white/20 shadow-2xl shadow-white
           border border-white/10
           flex flex-col items-center
-          justify-start sm:justify-center
-          p-6 sm:p-8 md:p-8
-          mt-8 sm:mt-5
+          justify-center
+          p-6 sm:p-8 md:p-8       
         ">
 
 
