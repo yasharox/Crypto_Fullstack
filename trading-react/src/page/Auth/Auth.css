@@ -1,0 +1,40 @@
+
+
+/* Auth.css */
+
+.authContainer {
+    background-image: url("./Asset/futuristic-technology-hologram.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Glassmorphism effect */
+.bgBlur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.authContainer {
+    background-image: 
+        linear-gradient(
+            rgba(8, 8, 9, 0.747),
+            rgba(15, 15, 15, 0.552)
+        ),
+        url("./Asset/futuristic-technology-hologram.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Glass effect */
+.bgBlur {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
