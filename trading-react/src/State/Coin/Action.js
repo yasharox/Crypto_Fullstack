@@ -108,7 +108,7 @@ export const fetchCoinDetails = (coinId) => async ( dispatch) => {
     dispatch({ type:FETCH_COIN_DETAILS_REQUEST});
         
     try {
-            const response = await api.get(`/coins/details/${coinId}`);
+            const response = await api.get(`/coins/details/${coin.coinId}`);
             console.log ( "coin details", response.data);     
 
             dispatch ( { 
