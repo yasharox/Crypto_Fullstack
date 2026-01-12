@@ -51,38 +51,21 @@ export default function Wallet() {
 
       // 🔴 FIX: Razorpay sends ONLY razorpay_payment_id
 
-  // ================= PAYMENT CONFIRMATION =================
-  useEffect(() => {
-    if (orderId && razorpayPaymentId) {
-      api.post(
-        "/api/payment/confirm",
-        null,
-        {
-          params: {
-            order_id: orderId,
-            payment_id: razorpayPaymentId,
-          },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
+     // ================= PAYMENT CONFIRM =================
+      useEffect(() => {
+        if (orderId && razorpayPaymentId) {
+          dispatch(confirmPayment({
+            jwt: localStorage.getItem("jwt"),
+            orderId,
+            paymentId: razorpayPaymentId
+          }));
+
+          // 🔴 FIX: remove params to prevent double credit
+          window.history.replaceState({}, document.title, "/wallet");
         }
-      )
-      .then(() => {
-        // 🔴 FIX: Refresh wallet AFTER payment confirmation
-        dispatch(getUserWallet(localStorage.getItem("jwt")));
-        dispatch(getWalletTransactions({ jwt: localStorage.getItem("jwt") }));
+      }, [orderId, razorpayPaymentId, dispatch]);
 
-        // 🔴 FIX: Remove query params to prevent double credit
-        window.history.replaceState({}, document.title, "/wallet");
-      })
-      .catch((err) => {
-        console.error("Payment confirmation failed", err);
-      });
-    }
-  }, [orderId, razorpayPaymentId, dispatch]);
-  // 🔴 FIX: Dependency array added correctly
 
-  // ================= NORMAL LOAD =================
 
   
   useEffect(()=> {
@@ -92,16 +75,16 @@ export default function Wallet() {
   }, [dispatch]);
 
 
-  useEffect(() => {
-    if(orderId){
-      dispatch(depositMoney ({jwt:localStorage.getItem("jwt"),
-        orderId,
-        paymentId: razorpayPaymentId || paymentId,
-        navigate
+  // useEffect(() => {
+  //   if(orderId){
+  //     dispatch(depositMoney ({jwt:localStorage.getItem("jwt"),
+  //       orderId,
+  //       paymentId: razorpayPaymentId || paymentId,
+  //       navigate
         
-      }))
-    }
-  },[])
+  //     }))
+  //   }
+  // },[])
 
 
   const handleFetchUserWallet =()=>{
@@ -117,6 +100,13 @@ export default function Wallet() {
     }))
     
   }
+
+
+  useEffect(() => {
+    dispatch(getUserWallet(localStorage.getItem("jwt")));
+    dispatch(getWalletTransactions({ jwt: localStorage.getItem("jwt") }));
+  }, [dispatch]);
+
 
 
 
