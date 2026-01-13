@@ -115,8 +115,8 @@ export const confirmPayment = ({ jwt, orderId, paymentId }) => async (dispatch) 
   dispatch({ type: types.CONFIRM_PAYMENT_REQUEST });
 
   try {
-    await api.post(
-      "/api/payment/confirm",
+    await api.put( // changes done here //////<<<<
+      "/api/wallet/confirm",
       null,
       {
         params: {
@@ -135,7 +135,11 @@ export const confirmPayment = ({ jwt, orderId, paymentId }) => async (dispatch) 
     dispatch(getUserWallet(jwt));
     dispatch(getWalletTransactions({ jwt }));
 
+     console.log ( "success", response.data);
+
   } catch (error) {
+
+    console.log ( "error", error.message);
     dispatch({
       type: types.CONFIRM_PAYMENT_FAILURE,
       error: error.message,

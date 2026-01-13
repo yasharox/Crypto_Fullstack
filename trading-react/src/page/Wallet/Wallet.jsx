@@ -20,7 +20,7 @@ import TransferForm from './TransferForm';
 import SyncIcon from '@mui/icons-material/Sync';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { depositMoney, getUserWallet, getWalletTransactions } from '@/State/Wallet/Action';
+import { confirmPayment, getUserWallet, getWalletTransactions } from '@/State/Wallet/Action';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import { Avatar } from '@mui/material';
 
@@ -39,9 +39,9 @@ export default function Wallet() {
 
   const dispatch = useDispatch();
   const { wallet} = useSelector(store => store);
-    const query = useQuery();
+  const query = useQuery();
     
-    const paymentId= query.get("payment_Id");
+  const paymentId= query.get("payment_Id");
 
       const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ export default function Wallet() {
 
       // 🔴 FIX: Razorpay sends ONLY razorpay_payment_id
 
-     // ================= PAYMENT CONFIRM =================
+    //  ================= PAYMENT CONFIRM =================
       useEffect(() => {
         if (orderId && razorpayPaymentId) {
           dispatch(confirmPayment({
@@ -88,13 +88,11 @@ export default function Wallet() {
 
 
   const handleFetchUserWallet =()=>{
-
     dispatch(getUserWallet(localStorage.getItem("jwt")))
 
   }
 
   const handleFetchWalletTransaction = () =>{
-
     dispatch(getWalletTransactions({
       jwt:localStorage.getItem("jwt")
     }))
@@ -156,7 +154,7 @@ export default function Wallet() {
             <CardContent>
               <div className="flex items-center ">
                 <DollarSign />
-                <span className="text-2xl font-semibold">{wallet.userWallet.balance}</span>
+                <span className="text-2xl font-semibold">{wallet.userWallet?.balance}</span>
               </div>
 
               <div className="flex gap-7 mt-5 ">

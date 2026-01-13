@@ -15,9 +15,9 @@ import { GET_USER_FAILURE,
         } from "./ActionType";
 
 
-// const baseURL ="http://localhost:8088";
+const baseURL ="http://localhost:8088";
 
-const baseURL ="https://crypto-server-springboot-production.up.railway.app";
+// const baseURL ="https://crypto-server-springboot-production.up.railway.app";
 
 //Method 1: Register
 export  const register = ( userData) => async(dispatch) => {
