@@ -21,6 +21,13 @@ export const DEPOSIT_MONEY_REQUEST = "DEPOSIT_MONEY_REQUEST";
 export const DEPOSIT_MONEY_SUCCESS = "DEPOSIT_MONEY_SUCCESS";
 export const DEPOSIT_MONEY_FAILURE = "DEPOSIT_MONEY_FAILURE";
 
+// ===============================
+// DEPOSIT MONEY
+// ===============================
+export const CONFIRM_PAYMENT_REQUEST = "CONFIRM_PAYMENT_REQUEST";
+export const CONFIRM_PAYMENT_SUCCESS = "CONFIRM_PAYMENT_SUCCESS";
+export const CONFIRM_PAYMENT_FAILURE = "CONFIRM_PAYMENT_FAILURE";
+
 
 // ===============================
 // TRANSFER MONEY

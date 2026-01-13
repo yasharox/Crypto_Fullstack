@@ -12,7 +12,8 @@ const walletReducer = (state = initialState, action) => {
     case types.GET_USER_WALLET_REQUEST:
     case types.DEPOSIT_MONEY_REQUEST:
     case types.TRANSFER_MONEY_REQUEST:
-    case types.GET_WALLET_TRANSACTION_REQUEST:    
+    case types.GET_WALLET_TRANSACTION_REQUEST: 
+    case types.CONFIRM_PAYMENT_REQUEST:   
     
       return {
         ...state,
@@ -39,6 +40,7 @@ const walletReducer = (state = initialState, action) => {
       };
     
     case types.DEPOSIT_MONEY_SUCCESS:
+    case types.CONFIRM_PAYMENT_SUCCESS:
           return {
         ...state,
         userWallet: action.payload,
@@ -50,6 +52,7 @@ const walletReducer = (state = initialState, action) => {
     case types.GET_USER_WALLET_FAILURE:
     case types.DEPOSIT_MONEY_FAILURE:    
     case types.TRANSFER_MONEY_FAILURE:
+    case types.CONFIRM_PAYMENT_FAILURE:
       return {
         ...state,
         loading: false,

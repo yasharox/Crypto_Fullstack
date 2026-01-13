@@ -72,7 +72,10 @@ function App() {
           <Route path="/search" element={<SearchCoin/>}/>
 
           <Route path="/activity" element={auth.user ? <Activity /> : <Navigate to="/signin" />} />
-          <Route path="/wallet" element={auth.user ? <Wallet /> : <Navigate to="/signin" />} />
+          {/* <Route path="/wallet" element={auth.user ? <Wallet /> : <Navigate to="/signin" />} /> */}
+
+                    <Route path="/wallet" element={ <Wallet /> } /> 
+
           <Route path="/profile" element={auth.user ? <Profile /> : <Navigate to="/signin" />} />
           <Route path="/market/:id" element={auth.user ? <StockDetails /> : <Navigate to="/signin" />} />
           
