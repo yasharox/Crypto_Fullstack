@@ -120,7 +120,7 @@ export const fetchCoinDetails = (coinId) => async ( dispatch) => {
 
      catch (error) {
         console.log(
-      "❌ coin details error",
+      "❌ coin details error only one",
       error.response?.data || error.message
     );
         dispatch({

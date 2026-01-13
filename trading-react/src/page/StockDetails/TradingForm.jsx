@@ -16,6 +16,11 @@ export const TradingForm = () => {
 
     const {coin, wallet, asset} = useSelector(store => store);
 
+    console.log ( "coin is here",coin);
+    console.log ( "asset  is here",asset);
+
+    console.log( "wallet is here",wallet);
+
     const dispatch = useDispatch();
 
     const handleChange = ( e) => {
@@ -23,7 +28,7 @@ export const TradingForm = () => {
         setAmount( amount);
         const volume = calculateBuyCost (
              amount,
-             coin.coinDetails.market_data.current_price.usd);
+             coin.market_data.current_price.usd);
              console.log ( volume);
             setQuantity( volume);
      };
@@ -47,7 +52,7 @@ export const TradingForm = () => {
         dispatch(getUserWallet(localStorage.getItem("jwt")));
         dispatch(getAssetDetails ( {
 
-            coinId:coin.coinDetails.id,
+            coinId:coin.id,
             jwt:localStorage.getItem("jwt"),
         }))
                                      
@@ -145,6 +150,8 @@ export const TradingForm = () => {
 
             <p> {orderType == "BUY" ? "Available Cash": " Available Quantity"}</p>
             <p> {orderType == "BUY" ? "$" + (wallet.userWallet.balance ) : ( asset.assetDetails?.quantity || 0)}</p>
+
+            
 
 
 

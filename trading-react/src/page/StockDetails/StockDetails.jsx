@@ -23,11 +23,13 @@ const StockDetails = () => {
 
     const {watchlist} = useSelector(store =>store);
 
-    const { coinDetails, loading } = useSelector( state => state.coin );
+    const { coinDetails,coinList, loading } = useSelector( state => state.coin );
 
-    const {id} = useParams()
+   console.log (" coinList",  coinList);
+
+    const {id} = useParams();
     const dispatch = useDispatch();
-    ;
+    
     
 
     useEffect (()=> {
@@ -48,6 +50,8 @@ const StockDetails = () => {
     }
 
     console.log( coinDetails);
+
+    // console.log(coin);
 
   return (
 
@@ -125,7 +129,7 @@ const StockDetails = () => {
 
       <div className= '   w-full lg:w-[80%]' >
             
-             <div className='w-full h-"100%" md:h-[450px] lg:h-"100%"'>
+             <div className='w-full h-"50%" md:h-[450px] lg:h-"90%"'>
              
              <StockChart coinId= {id} />
             </div>  
