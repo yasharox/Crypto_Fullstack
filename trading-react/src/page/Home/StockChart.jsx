@@ -96,7 +96,7 @@ const StockChart = ({ coinId }) => {
         id="chart-timelines" 
         style={{ 
           flexGrow: 1,      // Forces this div to fill all remaining height in the Box
-          width: '100%', 
+          width: '95%', 
           minHeight: 0,     // Prevents chart from overflowing its parent
         }}
       >
@@ -104,7 +104,9 @@ const StockChart = ({ coinId }) => {
           options={options} 
           series={series} 
           type="area" 
-          height="100%"     // 4. SET TO 100% so it grows with the Box
+          height="95%"     // 4. SET TO 100% so it grows with the Box
+
+          
         />
       </div>
     </Box>

@@ -43,6 +43,8 @@ const AssetTable = ({ coin, category }) => {
   const navigate = useNavigate();
 
   return (
+
+    
     <Box
       sx={{
         // Using standard CSS values for better MUI compatibility

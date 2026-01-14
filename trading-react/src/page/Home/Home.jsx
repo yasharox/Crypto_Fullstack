@@ -21,7 +21,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // ✅ FIX: select ONLY coin slice
-  const { coinList, top50, loading } = useSelector((state) => state.coin);
+  const {  top50, loading } = useSelector((state) => state.coin);
 
   const { coin} = useSelector(store => store);
 
@@ -39,6 +39,16 @@ const Home = () => {
       dispatch(getTop50CoinList(page));
     }
   }, [category, dispatch]);
+
+
+   useEffect(() => {
+    if (category === "topGainers") {
+    dispatch(getCoinList());
+  }
+  }, [dispatch]);
+
+  
+
 
 
 
@@ -101,7 +111,7 @@ const Home = () => {
             </Button>
 
             <Button
-              onClick={() => handleCategory("topGainer")}
+              onClick={() => handleCategory("topGainers")}
               variant={category === "topGainers" ? "default" : "outline"}
               className="rounded-full"
               sx={{
@@ -133,36 +143,32 @@ const Home = () => {
 
           <AssetTable coin={displayedCoins} category={category} />
 
-          {/* <AssetTable coin={coin.coinList} category={category} /> */}
+               
 
-          
-
-         {/* // pagination */}
-
-          
+         {/* // pagination */}          
         </div>
 
         {/* RIGHT SIDE */}
         <div className="hidden lg:block lg:w-[50%] p-5">
 
             {/* <div className="hidden lg:flex lg:w-1/2 h-screen p-10 flex-col"> */}
-          <StockChart coinId={"bitcoin"} />
+          <StockChart coinId={coin.id} />
 
           <div className="flex gap-5 items-center mt-5">
-            <Avatar src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628" />
+            <Avatar src={coin.coinDetails?.image.large} />
 
             <div>
               <div className="flex items-center gap-2">
-                <p>ETH</p>
+                <p>{coin.coinDetails?.symbol.toUpperCase()}</p>
                 <DotIcon className="text-gray-400" />
-                <p className="text-gray-400">Ethereum</p>
+                <p className="text-gray-400">{coin.coinDetails?.name}</p>
               </div>
 
               <div className="flex items-end gap-2">
-                <p className="text-xl font-bold">3079.7</p>
+                <p className="text-xl font-bold">{coin.coinDetails?.market_data.current_price.usd}</p>
                 <p className="text-red-600">
-                  <span>-1319049822.578</span>
-                  <span> (-0.29803%)</span>
+                  <span>{coin.coinDetails?.market_data.market_cap_change_24h}</span>
+                  <span> - ({coin.coinDetails?.market_data.market_cap_change_percentage_24h}) %</span>
                 </p>
               </div>
             </div>

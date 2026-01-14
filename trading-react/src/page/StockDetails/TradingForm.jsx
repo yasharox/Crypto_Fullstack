@@ -17,9 +17,7 @@ export const TradingForm = () => {
     const {coin, wallet, asset} = useSelector(store => store);
 
     console.log ( "coin is here",coin);
-    console.log ( "asset  is here",asset);
-
-    console.log( "wallet is here",wallet);
+  
 
     const dispatch = useDispatch();
 
@@ -114,25 +112,25 @@ export const TradingForm = () => {
         <div className= 'flex  gap-5 items-center' >
 
               <div>
-                  <Avatar src='https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628' />  
+                  <Avatar src={coin.coinDetails?.image.large} />  
                     
               </div>
 
           <div>
               <div className='flex items-center gap-4'>
 
-                  <p>BTC</p>
+                  <p>{coin.coinDetails?.symbol.toUpperCase()}</p>
                   <DotIcon className='text-gray-400'/>
-                  <p className='text-gray-400'>Bitcoin</p>
+                  <p className='text-gray-400'>{coin.coinDetails?.name}</p>
 
                 </div>
                 <div className='flex items-end gap-3 pt-2'>
 
                   <p className='text-xl font-bold'>${coin.coinDetails?.market_data.current_price.usd}</p>
-                  <p className='text-green-600' >
+                  <p className='text-red-600' >
                     
-                      <span>1319049822.578</span>
-                      <span>(0.29803%)</span>                
+                      <span>{coin.coinDetails?.market_data.market_cap_change_24h}</span>
+                      <span>- ({coin.coinDetails?.market_data.market_cap_change_percentage_24h}) % </span>                
                   </p>
               </div>
         </div>
