@@ -42,7 +42,7 @@ const Home = () => {
 
 
 
-  // const displayedCoins = category === "top50" ? top50 : coinList;
+  const displayedCoins = category === "top50" ? top50 : coin.coinList;
 
   const handleBotRelease = () => setIsBotRelease(!isBotRelease);
 
@@ -131,9 +131,9 @@ const Home = () => {
             </Button>
           </div>
 
-          {/* <AssetTable coin={displayedCoins} category={category} /> */}
+          <AssetTable coin={displayedCoins} category={category} />
 
-          <AssetTable coin={coin.coinList} category={category} />
+          {/* <AssetTable coin={coin.coinList} category={category} /> */}
 
           
 
