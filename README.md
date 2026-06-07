@@ -2,6 +2,7 @@
 A high-performance, full-stack decentralized finance (DeFi) and crypto asset tracking ecosystem. Built using a microservices-inspired architecture with a Spring Boot core and a highly responsive React/Redux frontend, this platform mimics production-grade trading environments with real-time payment settlement and optimized database execution.
 
 🚀 ****Key Highlights & Impact Metrics****
+
 #API Scale: Architected and documented 21 distinct RESTful endpoints handling core authentication, wallet interactions, trading order books, and real-time payment transactions.
 
 #Database Performance: Achieved a massive 115x reduction in complex query latency (5200ms → 45ms) by implementing strategic compound indexing, query optimization, and connection pooling.
