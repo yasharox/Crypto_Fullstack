@@ -47,7 +47,7 @@ export const addItemToWatchlist = ({coinId , jwt}) => async (dispatch) => {
         {},
         {
             headers: {
-            Authorization: `Bearer ${jwt}`,
+            Authorization: `Bearer ${localStorage.getItem ("jwt")}`, 
             },       
     }
  );

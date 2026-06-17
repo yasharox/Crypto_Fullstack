@@ -104,28 +104,28 @@ export const fetchCoinById = (coinId) => async ( dispatch) => {
 
 
 //Method 5: fetchCoinDetails
-export const fetchCoinDetails = (coinId) => async ( dispatch) => {
+export const fetchCoinDetails = ({coinId, jwt}) => async ( dispatch) => {
     dispatch({ type:FETCH_COIN_DETAILS_REQUEST});
         
     try {
-            const response = await api.get(`/coins/details/${coinId}`);
+            const response = await api.get(`/coins/details/${coinId}`, {
+
+                // if u are using api >> u have to pass header yasher, 
+                // this costed you to take 300rs + 2 weeks time consumed
+                headers:{
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
             console.log ( "coin details", response.data);     
 
             dispatch ( { 
-                type:FETCH_COIN_DETAILS_SUCCESS,
-                payload:response.data 
-            });   
+                type:FETCH_COIN_DETAILS_SUCCESS, payload:response.data });   
                 
         }
 
      catch (error) {
-        console.log(
-      "❌ coin details error",
-      error.response?.data || error.message
-    );
-        dispatch({
-             type:FETCH_COIN_DETAILS_FAILURE,
-             payload:error.message})
+        console.log( "❌ coin details error only one",  error.response?.data || error.message  );
+        dispatch({ type:FETCH_COIN_DETAILS_FAILURE, payload:error.message})
         
     }
 };
@@ -140,7 +140,7 @@ export const searchCoin = (Keyword) => async ( dispatch) => {
     dispatch({ type:SEARCH_COIN_REQUEST});
         
     try {
-            const response = await api.get(`/coins/search?q=${Keyword}` );                     
+            const response = await api.get(`/coins/search?q=${Keyword}`, {});                     
 
             dispatch ( { type:SEARCH_COIN_SUCCESS, payload:response.data });   
              console.log("search coin", response.data);         

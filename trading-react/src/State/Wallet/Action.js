@@ -71,42 +71,82 @@ export const getWalletTransactions = ({jwt}) => async (dispatch) => {
 
 
 
-// ===============================
-// DEPOSIT MONEY
-// ===============================
-export const depositMoney = ({  jwt, orderId, paymentId, navigate }) => async (dispatch) => {
-  dispatch({ type: types.DEPOSIT_MONEY_REQUEST });
+// // ===============================
+// // DEPOSIT MONEY
+// // ===============================
+// export const depositMoney = ({  jwt, orderId, paymentId, navigate }) => async (dispatch) => {
+//   dispatch({ type: types.DEPOSIT_MONEY_REQUEST });
 
-  console.log( "----------",orderId, paymentId);
+//   console.log( "----------",orderId, paymentId);
+
+//   try {
+//     const response = await api.put( "/api/wallet/deposit",  null,
+//       { 
+//         params:{
+//         order_id:orderId,
+//         payment_id:paymentId,
+
+//       },
+//         headers: {
+//           Authorization: `Bearer ${jwt}`,
+//         },
+//       }
+//     );
+
+//     dispatch({
+//       type: types.DEPOSIT_MONEY_SUCCESS,
+//       payload: response.data,
+//     });
+//     navigate ("/wallet");
+//     console.log(response.data);
+//   } catch (error) {
+//     console.error ( error);
+//     dispatch({
+//       type: types.DEPOSIT_MONEY_FAILURE,
+//       error: error.message,
+//     });
+//   }
+// };
+
+
+
+
+export const confirmPayment = ({ jwt, orderId, paymentId }) => async (dispatch) => {
+  dispatch({ type: types.CONFIRM_PAYMENT_REQUEST });
 
   try {
-    const response = await api.put( "/api/wallet/deposit",  null,
-      { 
-        params:{
-        order_id:orderId,
-        payment_id:paymentId,
-
-      },
+    await api.put( // changes done here //////<<<<
+      "/api/wallet/confirm",
+      null,
+      {
+        params: {
+          order_id: orderId,
+          payment_id: paymentId,
+        },
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       }
     );
 
-    dispatch({
-      type: types.DEPOSIT_MONEY_SUCCESS,
-      payload: response.data,
-    });
-    navigate ("/wallet");
-    console.log(response.data);
+    dispatch({ type: types.CONFIRM_PAYMENT_SUCCESS });
+
+    // refresh wallet
+    dispatch(getUserWallet(jwt));
+    dispatch(getWalletTransactions({ jwt }));
+
+     console.log ( "success", response.data);
+
   } catch (error) {
-    console.error ( error);
+
+    console.log ( "error", error.message);
     dispatch({
-      type: types.DEPOSIT_MONEY_FAILURE,
+      type: types.CONFIRM_PAYMENT_FAILURE,
       error: error.message,
     });
   }
 };
+
 
 // ===============================
 // TRANSFER MONEY
@@ -129,6 +169,8 @@ export const paymentHandler = ({  jwt, amount, paymentMethod }) => async (dispat
     //   type: types.DEPOSIT_MONEY_SUCCESS,
     //   payload: response.data,
     // });
+
+
   } catch (error) {
     console.log ("error", error);
     dispatch({

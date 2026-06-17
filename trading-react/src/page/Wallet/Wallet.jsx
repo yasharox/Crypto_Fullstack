@@ -20,10 +20,12 @@ import TransferForm from './TransferForm';
 import SyncIcon from '@mui/icons-material/Sync';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { depositMoney, getUserWallet, getWalletTransactions } from '@/State/Wallet/Action';
+import { confirmPayment, getUserWallet, getWalletTransactions } from '@/State/Wallet/Action';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import { Avatar } from '@mui/material';
 
+
+import api from '@/config/api';// 🔴 FIX: API IMPORT FOR PAYMENT CONFIRM
 
 
 
@@ -37,13 +39,35 @@ export default function Wallet() {
 
   const dispatch = useDispatch();
   const { wallet} = useSelector(store => store);
-    const query = useQuery();
-    const orderId = query.get("order_id");
-    const paymentId= query.get("payment_Id");
-  
+  const query = useQuery();
+    
+  const paymentId= query.get("payment_Id");
+
+      const navigate = useNavigate();
+
+
+    const orderId = query.get("order_id");  
     const razorpayPaymentId = query.get("razorpay_payment_id");
 
-    const navigate = useNavigate();
+      // 🔴 FIX: Razorpay sends ONLY razorpay_payment_id
+
+    //  ================= PAYMENT CONFIRM =================
+      useEffect(() => {
+        if (orderId && razorpayPaymentId) {
+          dispatch(confirmPayment({
+            jwt: localStorage.getItem("jwt"),
+            orderId,
+            paymentId: razorpayPaymentId
+          }));
+
+          // 🔴 FIX: remove params to prevent double credit
+          window.history.replaceState({}, document.title, "/wallet");
+        }
+      }, [orderId, razorpayPaymentId, dispatch]);
+
+
+
+  
   useEffect(()=> {
 
     handleFetchUserWallet();
@@ -51,31 +75,38 @@ export default function Wallet() {
   }, [dispatch]);
 
 
-  useEffect(() => {
-    if(orderId){
-      dispatch(depositMoney ({jwt:localStorage.getItem("jwt"),
-        orderId,
-        paymentId: razorpayPaymentId || paymentId,
-        navigate
+  // useEffect(() => {
+  //   if(orderId){
+  //     dispatch(depositMoney ({jwt:localStorage.getItem("jwt"),
+  //       orderId,
+  //       paymentId: razorpayPaymentId || paymentId,
+  //       navigate
         
-      }))
-    }
-  },[])
+  //     }))
+  //   }
+  // },[])
+
+  // hello world
 
 
   const handleFetchUserWallet =()=>{
-
     dispatch(getUserWallet(localStorage.getItem("jwt")))
 
   }
 
   const handleFetchWalletTransaction = () =>{
-
     dispatch(getWalletTransactions({
       jwt:localStorage.getItem("jwt")
     }))
     
   }
+
+
+  useEffect(() => {
+    dispatch(getUserWallet(localStorage.getItem("jwt")));
+    dispatch(getWalletTransactions({ jwt: localStorage.getItem("jwt") }));
+  }, [dispatch]);
+
 
 
 
@@ -125,7 +156,7 @@ export default function Wallet() {
             <CardContent>
               <div className="flex items-center ">
                 <DollarSign />
-                <span className="text-2xl font-semibold">{wallet.userWallet.balance}</span>
+                <span className="text-2xl font-semibold">{wallet.userWallet?.balance}</span>
               </div>
 
               <div className="flex gap-7 mt-5 ">

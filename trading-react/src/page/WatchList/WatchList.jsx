@@ -10,8 +10,9 @@ import Paper from '@mui/material/Paper';
 import { Avatar, Button } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserWatchlist } from '@/State/Watchlist/Action';
+import { addItemToWatchlist, getUserWatchlist } from '@/State/Watchlist/Action';
 import { existInWatchlist } from '@/utils/existInWatchlist';
+import { store } from '@/State/Store';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -41,6 +42,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function createData(name, SYMBOL, VOLUME, MARKETCAP, change_24H, PRICE, REMOVE) {
   return { name, SYMBOL, VOLUME, MARKETCAP, change_24H, PRICE, REMOVE };
 }
+
+
 
 
 
@@ -86,6 +89,9 @@ function createData(name, SYMBOL, VOLUME, MARKETCAP, change_24H, PRICE, REMOVE) 
 
 export default function WatchList() {
 
+
+  const { user} = useSelector( store => store.auth);
+
    const {watchlist} = useSelector(store => store);
 
    const dispatch = useDispatch();
@@ -94,11 +100,14 @@ export default function WatchList() {
 
     dispatch( addItemToWatchlist ({coinId:value, jwt:localStorage.getItem("jwt")}));
     console.log(value);
+
+     }
+    
     
    useEffect ( () => {
 
     dispatch ( getUserWatchlist ( localStorage.getItem("jwt")) )
-   }, []);
+   }, [user]);
 
   //  const handleAddToWatchlist = (item) => {
   //        dispatch( addItemToWatchlist ({coinId:item?.id, jwt:localStorage.getItem("jwt")}));
@@ -106,7 +115,7 @@ export default function WatchList() {
 
 
 
-}
+
 
   return (
       
@@ -159,7 +168,7 @@ export default function WatchList() {
                 row.current_price,               
               (<Button   
                 
-              onClick={()=> handleRemoveToWatchlist(item.id)} >
+               onClick={()=> handleRemoveToWatchlist(row.id)} >
                 
                 <BookmarkIcon 
                 sx={{  color: "white"}}

@@ -44,14 +44,14 @@ const SideBar = () => {
           
           <Button
                 variant="outlined"
-                className="flex items-center gap-4 py-3 w-full text-base transition-all"
+                className="flex items-center gap-2 py-30 w-full text-base transition-all"
                 sx={{
                     justifyContent: "flex-start",
                     textTransform: "none",
                     bgcolor: "white",
                     color: "black",
                     borderColor: "#e5e7eb", // optional border color
-                    py: { xs: 1, md: 1,lg:2.5 }, // Smaller padding on mobile, larger on desktop
+                    py: { xs: 1, md: 1,lg:1.5 }, // Smaller padding on mobile, larger on desktop
                     fontSize: { xs: '0.875rem', md: '1rem' }, // Responsive text size
 
                     "&:hover": {

@@ -8,7 +8,7 @@ import {
         FETCH_MARKET_CHART_FAILURE,
 
         FETCH_COIN_BY_ID_REQUEST,
-        //FETCH_COIN_BY_ID_SUCCESS,
+        // FETCH_COIN_BY_ID_SUCCESS,
         FETCH_COIN_BY_ID_FAILURE,
 
         FETCH_COIN_DETAILS_REQUEST,
@@ -70,10 +70,7 @@ const coinReducer = (state = initialState, action)=>{
         case FETCH_MARKET_CHART_SUCCESS:
             return {
                 ...state,
-                 marketChart: {
-                     data: action.payload.prices,                     
-                    },
-                 loading:false,                
+                 marketChart: { data: action.payload.prices,loading:false },          
                  error:null,
             };
         
@@ -95,7 +92,6 @@ const coinReducer = (state = initialState, action)=>{
              return {
                 ...state,
                  marketChart: {loading:false, data:[]},
-                 loading:false,
                  error:null,
             };
         case FETCH_COIN_LIST_FAILURE:
